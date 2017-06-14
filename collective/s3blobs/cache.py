@@ -59,6 +59,18 @@ class S3BlobCache(object):
         return '<S3BlobCache proxy for %r at %s>' % (
             normal_storage, hex(id(self)))
 
+    def isBlobLocal(self, oid, serial):
+        """Check if blob can be found in the underlying storage.
+
+        (Useful for determining whether to serve the blob
+        directly from S3 or not.)
+        """
+        try:
+            self.storage.loadBlob(oid, serial)
+        except ZODB.POSException.POSKeyError:
+            return False
+        return True
+
     def loadBlob(self, oid, serial):
         """Load a blob.
 
