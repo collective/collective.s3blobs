@@ -23,6 +23,7 @@ add this to your plone.recipe.zope2instance section in buildout::
           cache-dir ${buildout:directory}/var/blobcache
           cache-size 100000000
           bucket-name your-s3-bucket
+          %s
         </s3blobcache
 
 (Note: This currently requires the ``storage-wrapper`` branch
