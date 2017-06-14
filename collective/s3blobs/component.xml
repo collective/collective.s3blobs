@@ -1,0 +1,30 @@
+<component prefix="collective.s3blobs.config">
+
+  <sectiontype
+      name="s3blobcache"
+      datatype=".S3BlobCacheConfig"
+      implements="ZODB.storage"
+      >
+
+	<section type="ZODB.storage" name="*" attribute="storage"/>
+	<key name="bucket-name" required="yes">
+	  <description>
+	  	Name of the S3 bucket to fetch blobs from.
+	  </description>
+	</key>
+    <key name="cache-dir" required="yes">
+      <description>
+        Path name to the blob cache directory.
+      </description>
+    </key>
+    <key name="cache-size" required="no" datatype="byte-size">
+      <description>
+        Maximum size of the blob cache, in bytes.  If not set, then
+        the cache size isn't checked and the blob directory will
+        grow without bound.
+      </description>
+    </key>
+
+  </sectiontype>
+
+</component>
