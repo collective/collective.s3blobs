@@ -60,14 +60,14 @@ def main():
             # Skip new files
             age = (time.time() - st.st_ctime) / 86400
             if age < args.age:
-                logger.info(
+                logger.debug(
                     'Skipping {} because it is too new.'.format(filepath))
                 continue
 
             # Skip small files
             size = st.st_size
             if size < args.size:
-                logger.info(
+                logger.debug(
                     'Skipping {} because it is too small.'.format(filepath))
                 continue
 
