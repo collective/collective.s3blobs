@@ -27,6 +27,9 @@ parser.add_argument(
 parser.add_argument(
     '-d', '--destroy', action='store_true', dest='exterminate',
     help='Destroy local file after archiving?')
+parser.add_argument(
+    '-b', '--backup', action='store_true',
+    help='Move destroyed files to add .bak extension rather than deleting')
 
 
 def main():
@@ -65,7 +68,7 @@ def main():
             size = st.st_size
             if size < args.size:
                 logger.info(
-                    'Skipping {} because it is too big.'.format(filepath))
+                    'Skipping {} because it is too small.'.format(filepath))
                 continue
 
             # Determine the S3 object key/filename
@@ -91,8 +94,12 @@ def main():
 
             # Remove local file
             if args.exterminate:
-                os.remove(filepath)
-                logger.info('Deleted {}'.format(filepath))
+                if args.backup:
+                    os.rename(filepath, '{}.bak'.format(filepath))
+                    logger.info('Moved {} to {}.bak'.format(filepath, filepath))
+                else:
+                    os.remove(filepath)
+                    logger.info('Deleted {}'.format(filepath))
 
     if count:
         logger.info(
