@@ -11,7 +11,7 @@ import ZEO.ClientStorage
 logger = logging.getLogger(__name__)
 
 
-class S3BlobCache(object):
+class S3BlobCache:
     """A read-only cache of blobs retrieved from Amazon S3.
 
     First tries to get the blob from the (local) underlying storage,
@@ -56,7 +56,7 @@ class S3BlobCache(object):
 
     def __repr__(self):
         normal_storage = self.storage
-        return '<S3BlobCache proxy for %r at %s>' % (
+        return '<S3BlobCache proxy for {!r} at {}>'.format(
             normal_storage, hex(id(self)))
 
     def isBlobLocal(self, oid, serial):
@@ -148,7 +148,7 @@ class S3BlobCache(object):
                 return open(blob_filename, 'rb')
             else:
                 return ZODB.blob.BlobFile(blob_filename, 'r', blob)
-        except (IOError):
+        except (OSError):
             # The file got removed while we were opening.
             # Fall through and try again with the protection of the lock.
             pass
