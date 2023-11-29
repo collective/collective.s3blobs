@@ -53,8 +53,8 @@ by the cache)::
 
 To do:
 ------
-[ ] setup instructions (including bucket permissions)
-[ ] how to transition smoothly
-[ ] make views link to signed download URL
-[ ] packing
-[ ] tests
+- [ ] setup instructions (including bucket permissions)
+- [ ] how to transition smoothly
+- [ ] make views link to signed download URL
+- [ ] packing
+- [ ] tests
