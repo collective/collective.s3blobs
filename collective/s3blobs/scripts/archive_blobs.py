@@ -81,7 +81,7 @@ def main():
             if blob_filename not in existing:
                 # There's a hole in the bucket, dear Liza, dear Liza...
                 extra_args = {
-                    'ContentType': magic.from_file(filepath, mime=True)
+                    'ContentType': magic.from_file(filepath, mime=True).decode()
                 }
                 bucket.upload_file(
                     filepath, blob_filename, ExtraArgs=extra_args)
